@@ -1,4 +1,4 @@
-package JavaHTTP;
+package com.alura;
 
 import java.io.IOException;
 import java.net.URI;
@@ -6,11 +6,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Aula1 {
+import com.google.gson.Gson;
+
+public class Main {
     /**
      * Consumindo API OMDB.
      * Precisa passar a API KEY na execução, exemplo "java Aula1.java APIKEY"
@@ -25,15 +26,15 @@ public class Aula1 {
         }
         APIKEY = args[0];
         Scanner scan = new Scanner(System.in);
-        HttpClient cliente =  HttpClient.newHttpClient();
+        HttpClient cliente = HttpClient.newHttpClient();
+        Gson gson = new Gson();
         System.out.println("Digite o nome de um filme: ");
         var filme = scan.nextLine().replace(" ", "+");
-        var endereco = "https://www.omdbapi.com/?t="+filme+"&apikey="+APIKEY;
+        var endereco = "https://www.omdbapi.com/?t=" + filme + "&apikey=" + APIKEY;
         HttpRequest req = HttpRequest.newBuilder().uri(URI.create(endereco)).build();
-        Map<String,String> resposta = new HashMap<>();
-        HttpResponse<String> httpResposta =  cliente.send(req, HttpResponse.BodyHandlers.ofString()); 
+        Map<String, String> resposta = new HashMap<>();
+        HttpResponse<String> httpResposta = cliente.send(req, HttpResponse.BodyHandlers.ofString());
         System.out.println(httpResposta.body());
-
         
     }
 }
