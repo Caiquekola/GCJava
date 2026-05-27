@@ -32,7 +32,6 @@ public class Main {
         var filme = scan.nextLine().replace(" ", "+");
         var endereco = "https://www.omdbapi.com/?t=" + filme + "&apikey=" + APIKEY;
         HttpRequest req = HttpRequest.newBuilder().uri(URI.create(endereco)).build();
-        Map<String, String> resposta = new HashMap<>();
         HttpResponse<String> httpResposta = cliente.send(req, HttpResponse.BodyHandlers.ofString());
         System.out.println(httpResposta.body());
         
